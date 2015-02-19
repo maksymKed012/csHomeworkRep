@@ -33,10 +33,13 @@
             this.EightNoteTriplets = new System.Windows.Forms.RadioButton();
             this.StartStopButton = new System.Windows.Forms.Button();
             this.TempoBar = new System.Windows.Forms.TrackBar();
+            TempoBar.SetRange(0, 300);
+            TempoBar.Value = 60;
             this.TempoBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Timer = new System.Windows.Forms.NumericUpDown();
             this.BarsCount = new System.Windows.Forms.NumericUpDown();
+            BarsCount.Value = 100;
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.TempoBar)).BeginInit();

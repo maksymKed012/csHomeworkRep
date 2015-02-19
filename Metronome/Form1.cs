@@ -19,6 +19,7 @@ namespace Metronome
         {
             metronomeKernel = new MetronomeKernel();
             InitializeComponent();
+            TempoBox.Text = "60";
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -38,7 +39,7 @@ namespace Metronome
 
         private void Bars_ValueChanged(object sender, EventArgs e)
         {
-
+            metronomeKernel.m_nBars = Convert.ToInt32(BarsCount.Value);
         }
 
         private void Tempo_TextChanged(object sender, EventArgs e)
@@ -48,7 +49,7 @@ namespace Metronome
 
         private void TempoBar_Scroll(object sender, EventArgs e)
         {
-
+            TempoBox.Text = TempoBar.Value.ToString();
         }
 
         private void StartStop_Click(object sender, EventArgs e)
@@ -58,17 +59,17 @@ namespace Metronome
 
         private void QuaterNotes_CheckedChanged(object sender, EventArgs e)
         {
-           // if (this.
+            metronomeKernel.m_nClicksPerBar = 1;
         }
 
         private void EightNotes_CheckedChanged(object sender, EventArgs e)
         {
-
+            metronomeKernel.m_nClicksPerBar = 2;
         }
 
         private void EightNoteTriplets_CheckedChanged(object sender, EventArgs e)
         {
-
+            metronomeKernel.m_nClicksPerBar = 3;
         }
 
         private void MetronomeForm_Load(object sender, EventArgs e)
@@ -79,9 +80,22 @@ namespace Metronome
         private void StartStop_MClick(object sender, MouseEventArgs e)
         {
             if (!metronomeKernel.m_bIsPlaying)
-                metronomeKernel.Start();
+            {
+                metronomeKernel.StartClick();//metronomeKernel.Start();
+                SetControlsEnabledOnClick(false);
+            }
             else
+            {
                 metronomeKernel.Stop();
+                SetControlsEnabledOnClick(true);
+            }
+        }
+        private void SetControlsEnabledOnClick(bool bEnabled)
+        {
+            TempoBox.Enabled = bEnabled;
+            TempoBar.Enabled = bEnabled;
+            Timer.Enabled = bEnabled;
+            BarsCount.Enabled = bEnabled;
         }
     }
 }

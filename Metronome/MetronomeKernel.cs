@@ -8,59 +8,77 @@ using System.Threading;
 
 namespace Metronome
 {
+    //TODO : debug bar counter.
     enum eSubDivision { eQuaters = 0, eEighth, eTriplets }
 
     class MetronomeKernel
     {
         public string sTempo { set; get; }
         private int m_nBarsPlayed;
-        private int m_nBars;
+        public int m_nBars { get; set; }
         private int m_nClicks;
         public int m_nClicksPerBar { set; get; }
         public bool m_bIsPlaying { set; get; }
-        SoundPlayer player;
+        SoundPlayer m_Player;
+        Thread m_ClickThread;
         void SetBarSubdivision(eSubDivision subdiv)
         {
             switch (subdiv)
             {
                 case eSubDivision.eQuaters:
-                    m_nClicksPerBar = 4;
+                    m_nClicksPerBar = 1;
                     break;
                 case eSubDivision.eEighth:
-                    m_nClicksPerBar = 8;
+                    m_nClicksPerBar = 2;
                     break;
                 case eSubDivision.eTriplets:
-                    m_nClicksPerBar = 12;
+                    m_nClicksPerBar = 3;
                     break;
             }
         }
-        //bool IsPlaying() { return m_bIsPlaying; }
-        public void Start()
+        public void Click()
         {
             int nTempo = Convert.ToInt32(sTempo);
             int  nCurrentTempo = ((60 * 1000) / (nTempo * m_nClicksPerBar));
-            //SoundPlayer player = new SoundPlayer(Metronome.Properties.Resources.Click);
-            if(!m_bIsPlaying)
+            if (!m_bIsPlaying)
+            {
+                m_bIsPlaying = true;
                 while (true)
                 {
-                    player.Play();
+                    if (m_nClicks > m_nClicksPerBar * 4)
+                    {
+                        m_nBarsPlayed++;
+                        m_nClicks = 0;
+                        if (m_nBarsPlayed > m_nBars)
+                            Stop() ;
+                    }
+                    m_Player.Play();
                     Thread.Sleep(nCurrentTempo);
+                    m_nClicks++;
                 }
-            m_bIsPlaying = true;
+            }
         }
         public void Stop()
         {
             if (m_bIsPlaying)
             {
-                player.Stop();
+                m_Player.Stop();
+                m_ClickThread.Abort();
             }
             m_bIsPlaying = false;
         }
         public MetronomeKernel() 
         {
-            player = new SoundPlayer(Metronome.Properties.Resources.Click);
-            m_nClicksPerBar = 4;
+            //m_ClickThread = new Thread(Click);
+            m_Player = new SoundPlayer(Metronome.Properties.Resources.Click);
+            //Thread ClickThread = new Thread(player.Play());
+            m_nClicksPerBar = 1;
             sTempo = "60"; //Z!!
+        }
+        public void StartClick()
+        {
+            m_ClickThread = new Thread(Click);
+            m_ClickThread.Start();
         }
     }
 }
