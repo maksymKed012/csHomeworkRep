@@ -7,3 +7,12 @@ c:\users\max\documents\visual studio 2012\Projects\Metronome\Metronome\obj\Debug
 c:\users\max\documents\visual studio 2012\Projects\Metronome\Metronome\obj\Debug\Metronome.pdb
 c:\users\max\documents\visual studio 2012\Projects\Metronome\Metronome\obj\Debug\Metronome.MetronomeForm.resources
 C:\Users\Max\documents\visual studio 2012\Projects\Metronome\Metronome\obj\Debug\Metronome.csprojResolveAssemblyReference.cache
+d:\study\csHomeworkRep\Metronome\bin\Debug\Metronome.exe.config
+d:\study\csHomeworkRep\Metronome\obj\Debug\Metronome.exe
+d:\study\csHomeworkRep\Metronome\obj\Debug\Metronome.pdb
+d:\study\csHomeworkRep\Metronome\bin\Debug\Metronome.exe
+d:\study\csHomeworkRep\Metronome\bin\Debug\Metronome.pdb
+d:\study\csHomeworkRep\Metronome\obj\Debug\Metronome.MetronomeForm.resources
+d:\study\csHomeworkRep\Metronome\obj\Debug\Metronome.Properties.Resources.resources
+d:\study\csHomeworkRep\Metronome\obj\Debug\Metronome.csproj.GenerateResource.Cache
+d:\study\csHomeworkRep\Metronome\obj\Debug\Metronome.csprojResolveAssemblyReference.cache

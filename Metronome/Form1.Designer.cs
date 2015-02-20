@@ -33,17 +33,15 @@
             this.EightNoteTriplets = new System.Windows.Forms.RadioButton();
             this.StartStopButton = new System.Windows.Forms.Button();
             this.TempoBar = new System.Windows.Forms.TrackBar();
-            TempoBar.SetRange(0, 300);
-            TempoBar.Value = 60;
             this.TempoBox = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Timer = new System.Windows.Forms.NumericUpDown();
             this.BarsCount = new System.Windows.Forms.NumericUpDown();
-            BarsCount.Value = 100;
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.EnableBarCountCheckBox = new System.Windows.Forms.CheckBox();
+            this.EnableTimerCheckBox = new System.Windows.Forms.CheckBox();
+            this.AccentUbBeatsCkeckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.TempoBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Timer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BarsCount)).BeginInit();
             this.SuspendLayout();
@@ -85,7 +83,7 @@
             // 
             // StartStopButton
             // 
-            this.StartStopButton.Location = new System.Drawing.Point(41, 302);
+            this.StartStopButton.Location = new System.Drawing.Point(41, 358);
             this.StartStopButton.Name = "StartStopButton";
             this.StartStopButton.Size = new System.Drawing.Size(231, 111);
             this.StartStopButton.TabIndex = 3;
@@ -96,31 +94,29 @@
             // 
             // TempoBar
             // 
-            this.TempoBar.Location = new System.Drawing.Point(41, 249);
+            this.TempoBar.Location = new System.Drawing.Point(41, 309);
+            this.TempoBar.Maximum = 300;
             this.TempoBar.Name = "TempoBar";
             this.TempoBar.Size = new System.Drawing.Size(231, 45);
             this.TempoBar.TabIndex = 4;
+            this.TempoBar.Value = 60;
             this.TempoBar.Scroll += new System.EventHandler(this.TempoBar_Scroll);
             // 
             // TempoBox
             // 
-            this.TempoBox.Location = new System.Drawing.Point(100, 223);
+            this.TempoBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TempoBox.Location = new System.Drawing.Point(110, 247);
+            this.TempoBox.Multiline = true;
             this.TempoBox.Name = "TempoBox";
-            this.TempoBox.Size = new System.Drawing.Size(121, 20);
+            this.TempoBox.Size = new System.Drawing.Size(94, 56);
             this.TempoBox.TabIndex = 5;
+            this.TempoBox.Text = "60";
+            this.TempoBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.TempoBox.TextChanged += new System.EventHandler(this.Tempo_TextChanged);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(100, 164);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(121, 50);
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
             // 
             // Timer
             // 
-            this.Timer.Location = new System.Drawing.Point(31, 68);
+            this.Timer.Location = new System.Drawing.Point(31, 120);
             this.Timer.Name = "Timer";
             this.Timer.Size = new System.Drawing.Size(120, 20);
             this.Timer.TabIndex = 7;
@@ -128,16 +124,21 @@
             // 
             // BarsCount
             // 
-            this.BarsCount.Location = new System.Drawing.Point(31, 116);
+            this.BarsCount.Location = new System.Drawing.Point(31, 168);
             this.BarsCount.Name = "BarsCount";
             this.BarsCount.Size = new System.Drawing.Size(120, 20);
             this.BarsCount.TabIndex = 8;
+            this.BarsCount.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.BarsCount.ValueChanged += new System.EventHandler(this.Bars_ValueChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(206, 75);
+            this.label1.Location = new System.Drawing.Point(206, 127);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 9;
@@ -146,23 +147,62 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(206, 123);
+            this.label2.Location = new System.Drawing.Point(206, 175);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(28, 13);
             this.label2.TabIndex = 10;
             this.label2.Text = "Bars";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // EnableBarCountCheckBox
+            // 
+            this.EnableBarCountCheckBox.AutoSize = true;
+            this.EnableBarCountCheckBox.Checked = false;
+            this.EnableBarCountCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EnableBarCountCheckBox.Location = new System.Drawing.Point(31, 195);
+            this.EnableBarCountCheckBox.Name = "EnableBarCountCheckBox";
+            this.EnableBarCountCheckBox.Size = new System.Drawing.Size(59, 17);
+            this.EnableBarCountCheckBox.TabIndex = 11;
+            this.EnableBarCountCheckBox.Text = "Enable";
+            this.EnableBarCountCheckBox.UseVisualStyleBackColor = true;
+            this.EnableBarCountCheckBox.CheckedChanged += new System.EventHandler(this.EnableBarCountCheckBox_CheckedChanged);
+            // 
+            // EnableTimerCheckBox
+            // 
+            this.EnableTimerCheckBox.AutoSize = true;
+            this.EnableTimerCheckBox.Checked = false;
+            this.EnableTimerCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EnableTimerCheckBox.Location = new System.Drawing.Point(31, 145);
+            this.EnableTimerCheckBox.Name = "EnableTimerCheckBox";
+            this.EnableTimerCheckBox.Size = new System.Drawing.Size(59, 17);
+            this.EnableTimerCheckBox.TabIndex = 12;
+            this.EnableTimerCheckBox.Text = "Enable";
+            this.EnableTimerCheckBox.UseVisualStyleBackColor = true;
+            this.EnableTimerCheckBox.CheckedChanged += new System.EventHandler(this.EnableTimerCheckBox_CheckedChanged);
+            // 
+            // AccentUbBeatsCkeckBox
+            // 
+            this.AccentUbBeatsCkeckBox.AutoSize = true;
+            this.AccentUbBeatsCkeckBox.Location = new System.Drawing.Point(31, 50);
+            this.AccentUbBeatsCkeckBox.Name = "AccentUbBeatsCkeckBox";
+            this.AccentUbBeatsCkeckBox.Size = new System.Drawing.Size(107, 17);
+            this.AccentUbBeatsCkeckBox.TabIndex = 13;
+            this.AccentUbBeatsCkeckBox.Text = "Accent Up Beats";
+            this.AccentUbBeatsCkeckBox.UseVisualStyleBackColor = true;
+            this.AccentUbBeatsCkeckBox.CheckedChanged += new System.EventHandler(this.AccentUbBeatsCkeckBox_CheckedChanged);
+            // 
             // MetronomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 425);
+            this.ClientSize = new System.Drawing.Size(316, 481);
+            this.Controls.Add(this.AccentUbBeatsCkeckBox);
+            this.Controls.Add(this.EnableTimerCheckBox);
+            this.Controls.Add(this.EnableBarCountCheckBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.BarsCount);
             this.Controls.Add(this.Timer);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.TempoBox);
             this.Controls.Add(this.TempoBar);
             this.Controls.Add(this.StartStopButton);
@@ -173,7 +213,6 @@
             this.Text = "Metronome";
             this.Load += new System.EventHandler(this.MetronomeForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TempoBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Timer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BarsCount)).EndInit();
             this.ResumeLayout(false);
@@ -189,11 +228,13 @@
         private System.Windows.Forms.Button StartStopButton;
         private System.Windows.Forms.TrackBar TempoBar;
         private System.Windows.Forms.TextBox TempoBox;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.NumericUpDown Timer;
         private System.Windows.Forms.NumericUpDown BarsCount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox EnableBarCountCheckBox;
+        private System.Windows.Forms.CheckBox EnableTimerCheckBox;
+        private System.Windows.Forms.CheckBox AccentUbBeatsCkeckBox;
     }
 }
 

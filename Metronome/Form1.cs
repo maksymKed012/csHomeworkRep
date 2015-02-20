@@ -19,7 +19,7 @@ namespace Metronome
         {
             metronomeKernel = new MetronomeKernel();
             InitializeComponent();
-            TempoBox.Text = "60";
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -45,6 +45,16 @@ namespace Metronome
         private void Tempo_TextChanged(object sender, EventArgs e)
         {
             metronomeKernel.sTempo = TempoBox.Text;
+            try
+            {
+                if (Convert.ToInt32(TempoBox.Text) >= 0 && Convert.ToInt32(TempoBox.Text) <= 300)
+                    TempoBar.Value = Convert.ToInt32(TempoBox.Text);
+            }
+            catch (Exception)
+            {
+                TempoBar.Value = 0;
+                Console.WriteLine();
+            }
         }
 
         private void TempoBar_Scroll(object sender, EventArgs e)
@@ -60,16 +70,31 @@ namespace Metronome
         private void QuaterNotes_CheckedChanged(object sender, EventArgs e)
         {
             metronomeKernel.m_nClicksPerBar = 1;
+            if (metronomeKernel.m_bIsPlaying == true)
+            {
+                metronomeKernel.Stop();
+                metronomeKernel.StartClick();
+            }
         }
 
         private void EightNotes_CheckedChanged(object sender, EventArgs e)
         {
             metronomeKernel.m_nClicksPerBar = 2;
+            if (metronomeKernel.m_bIsPlaying == true)
+            {
+                metronomeKernel.Stop();
+                metronomeKernel.StartClick();
+            }
         }
 
         private void EightNoteTriplets_CheckedChanged(object sender, EventArgs e)
         {
             metronomeKernel.m_nClicksPerBar = 3;
+            if (metronomeKernel.m_bIsPlaying == true)
+            {
+                metronomeKernel.Stop();
+                metronomeKernel.StartClick();
+            }
         }
 
         private void MetronomeForm_Load(object sender, EventArgs e)
@@ -90,12 +115,32 @@ namespace Metronome
                 SetControlsEnabledOnClick(true);
             }
         }
+
+        private void EnableBarCountCheckBox_CheckedChanged (object sender, EventArgs e)
+        {
+            BarsCount.Enabled = EnableBarCountCheckBox.Checked;
+        }
+
+        private void EnableTimerCheckBox_CheckedChanged (object sender, EventArgs e)
+        {
+            Timer.Enabled = EnableTimerCheckBox.Checked;
+        }
         private void SetControlsEnabledOnClick(bool bEnabled)
         {
             TempoBox.Enabled = bEnabled;
             TempoBar.Enabled = bEnabled;
             Timer.Enabled = bEnabled;
             BarsCount.Enabled = bEnabled;
+            EnableTimerCheckBox.Enabled = bEnabled;
+            EnableBarCountCheckBox.Enabled = bEnabled;
+            AccentUbBeatsCkeckBox.Enabled = bEnabled;
         }
+
+        private void AccentUbBeatsCkeckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            metronomeKernel.m_bIsAccentSet = AccentUbBeatsCkeckBox.Checked;
+        }
+
+      
     }
 }

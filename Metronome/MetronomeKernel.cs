@@ -5,22 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Media;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Metronome
 {
-    //TODO : debug bar counter.
+    //TODO : timer & barcount checkboxes; radiobuttons for timer/barcount; onclose action
     enum eSubDivision { eQuaters = 0, eEighth, eTriplets }
 
     class MetronomeKernel
     {
+        public bool m_bIsControlsAvailable { set; get; }
+        public bool m_bIsAccentSet { set; get; }
         public string sTempo { set; get; }
         private int m_nBarsPlayed;
         public int m_nBars { get; set; }
         private int m_nClicks;
         public int m_nClicksPerBar { set; get; }
         public bool m_bIsPlaying { set; get; }
-        SoundPlayer m_Player;
-        Thread m_ClickThread;
+        SoundPlayer m_PlayerHighSound;
+        SoundPlayer m_PlayerLowSound;
+        public Thread m_ClickThread;
         void SetBarSubdivision(eSubDivision subdiv)
         {
             switch (subdiv)
@@ -38,42 +42,61 @@ namespace Metronome
         }
         public void Click()
         {
-            int nTempo = Convert.ToInt32(sTempo);
-            int  nCurrentTempo = ((60 * 1000) / (nTempo * m_nClicksPerBar));
-            if (!m_bIsPlaying)
+            try
             {
-                m_bIsPlaying = true;
-                while (true)
+                int nTempo = Convert.ToInt32(sTempo);
+                int nCurrentTempo = ((60 * 1000) / (nTempo * m_nClicksPerBar));
+                if (!m_bIsPlaying)
                 {
-                    if (m_nClicks > m_nClicksPerBar * 4)
+                    m_bIsPlaying = true;
+                    m_bIsControlsAvailable = false;
+                    while (true)
                     {
-                        m_nBarsPlayed++;
-                        m_nClicks = 0;
-                        if (m_nBarsPlayed > m_nBars)
-                            Stop() ;
+                        if (m_nClicks == m_nClicksPerBar * 4)
+                        {
+                            m_nBarsPlayed++;
+                            m_nClicks = 0;
+                            if (m_nBarsPlayed == m_nBars)
+                                Stop();
+                        }
+                        if ((m_nClicks == 0 && m_bIsAccentSet == true)                                  || 
+                           (m_nClicksPerBar == 2 && m_nClicks % 2 == 0 && m_bIsAccentSet == true)       ||
+                           (m_nClicksPerBar == 3 && m_nClicks % 3 == 0 && m_bIsAccentSet == true))
+                            m_PlayerHighSound.Play();
+                        else
+                            m_PlayerLowSound.Play();
+                        Thread.Sleep(nCurrentTempo);
+                        m_nClicks++;
                     }
-                    m_Player.Play();
-                    Thread.Sleep(nCurrentTempo);
-                    m_nClicks++;
                 }
+            }
+            catch (System.FormatException)
+            {
+                MessageBox.Show("No tempo specified.\nPlease specify tempo value.",
+                                                                         "PISTON!",
+                                                              MessageBoxButtons.OK,
+                                                           MessageBoxIcon.Warning);
             }
         }
         public void Stop()
         {
             if (m_bIsPlaying)
             {
-                m_Player.Stop();
+                m_PlayerHighSound.Stop();
+                m_PlayerLowSound.Stop();
                 m_ClickThread.Abort();
+                m_nClicks = 0;
             }
             m_bIsPlaying = false;
+            m_bIsControlsAvailable = true;
         }
         public MetronomeKernel() 
         {
-            //m_ClickThread = new Thread(Click);
-            m_Player = new SoundPlayer(Metronome.Properties.Resources.Click);
-            //Thread ClickThread = new Thread(player.Play());
+            m_PlayerHighSound = new SoundPlayer(Metronome.Properties.Resources.HighSeiko);
+            m_PlayerLowSound = new SoundPlayer(Metronome.Properties.Resources.LowSeiko);
             m_nClicksPerBar = 1;
             sTempo = "60"; //Z!!
+            m_nBars = 100;
         }
         public void StartClick()
         {
