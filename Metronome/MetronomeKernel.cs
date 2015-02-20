@@ -9,14 +9,14 @@ using System.Windows.Forms;
 
 namespace Metronome
 {
-    //TODO : timer & barcount checkboxes; radiobuttons for timer/barcount; onclose action
+    //TODO : timer & barcount checkboxes; radiobuttons for timer/barcount; 
     enum eSubDivision { eQuaters = 0, eEighth, eTriplets }
 
     class MetronomeKernel
     {
         public bool m_bIsControlsAvailable { set; get; }
         public bool m_bIsAccentSet { set; get; }
-        public string sTempo { set; get; }
+        public string m_sTempo { set; get; }
         private int m_nBarsPlayed;
         public int m_nBars { get; set; }
         private int m_nClicks;
@@ -24,6 +24,7 @@ namespace Metronome
         public bool m_bIsPlaying { set; get; }
         SoundPlayer m_PlayerHighSound;
         SoundPlayer m_PlayerLowSound;
+        SoundPlayer m_PlayerAvgSound;
         public Thread m_ClickThread;
         void SetBarSubdivision(eSubDivision subdiv)
         {
@@ -44,7 +45,7 @@ namespace Metronome
         {
             try
             {
-                int nTempo = Convert.ToInt32(sTempo);
+                int nTempo = Convert.ToInt32(m_sTempo);
                 int nCurrentTempo = ((60 * 1000) / (nTempo * m_nClicksPerBar));
                 if (!m_bIsPlaying)
                 {
@@ -59,12 +60,13 @@ namespace Metronome
                             if (m_nBarsPlayed == m_nBars)
                                 Stop();
                         }
-                        if ((m_nClicks == 0 && m_bIsAccentSet == true)                                  || 
-                           (m_nClicksPerBar == 2 && m_nClicks % 2 == 0 && m_bIsAccentSet == true)       ||
-                           (m_nClicksPerBar == 3 && m_nClicks % 3 == 0 && m_bIsAccentSet == true))
+                        if (m_nClicks == 0 && m_bIsAccentSet == true)
                             m_PlayerHighSound.Play();
-                        else
+                        else if ((m_nClicks != 0 && m_nClicksPerBar == 2 && m_nClicks % 2 == 0 && m_bIsAccentSet == true) ||
+                                ((m_nClicks != 0 && m_nClicksPerBar == 3 && m_nClicks % 3 == 0 && m_bIsAccentSet == true)))
                             m_PlayerLowSound.Play();
+                        else
+                            m_PlayerAvgSound.Play();
                         Thread.Sleep(nCurrentTempo);
                         m_nClicks++;
                     }
@@ -77,6 +79,16 @@ namespace Metronome
                                                               MessageBoxButtons.OK,
                                                            MessageBoxIcon.Warning);
             }
+
+            catch (System.DivideByZeroException)
+            {
+                this.Stop();
+                MessageBox.Show("0 is too slow.\nEven you are better than this!",
+                                                                        "PISTON!",
+                                                             MessageBoxButtons.OK,
+                                                          MessageBoxIcon.Warning);
+            }
+           
         }
         public void Stop()
         {
@@ -93,9 +105,10 @@ namespace Metronome
         public MetronomeKernel() 
         {
             m_PlayerHighSound = new SoundPlayer(Metronome.Properties.Resources.HighSeiko);
-            m_PlayerLowSound = new SoundPlayer(Metronome.Properties.Resources.LowSeiko);
+            m_PlayerLowSound = new SoundPlayer(Metronome.Properties.Resources.MARIMBA1);
+            m_PlayerAvgSound = new SoundPlayer(Metronome.Properties.Resources.MARIMBA2);
             m_nClicksPerBar = 1;
-            sTempo = "60"; //Z!!
+            m_sTempo = "60"; //Z!!
             m_nBars = 100;
         }
         public void StartClick()

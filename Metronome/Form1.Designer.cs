@@ -157,7 +157,7 @@
             // EnableBarCountCheckBox
             // 
             this.EnableBarCountCheckBox.AutoSize = true;
-            this.EnableBarCountCheckBox.Checked = false;
+            this.EnableBarCountCheckBox.Checked = true;
             this.EnableBarCountCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.EnableBarCountCheckBox.Location = new System.Drawing.Point(31, 195);
             this.EnableBarCountCheckBox.Name = "EnableBarCountCheckBox";
@@ -170,7 +170,7 @@
             // EnableTimerCheckBox
             // 
             this.EnableTimerCheckBox.AutoSize = true;
-            this.EnableTimerCheckBox.Checked = false;
+            this.EnableTimerCheckBox.Checked = true;
             this.EnableTimerCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.EnableTimerCheckBox.Location = new System.Drawing.Point(31, 145);
             this.EnableTimerCheckBox.Name = "EnableTimerCheckBox";
@@ -211,6 +211,7 @@
             this.Controls.Add(this.QuaterNotes);
             this.Name = "MetronomeForm";
             this.Text = "Metronome";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MetronomeForm_FormClosing);
             this.Load += new System.EventHandler(this.MetronomeForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TempoBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Timer)).EndInit();

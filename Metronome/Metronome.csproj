@@ -87,6 +87,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\MARIMBA2.wav" />
+    <None Include="Resources\MARIMBA1.wav" />
     <None Include="Resources\LowSeiko.wav" />
     <None Include="Resources\HighSeiko.wav" />
     <None Include="Resources\Click.wav" />

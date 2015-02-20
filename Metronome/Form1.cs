@@ -44,17 +44,23 @@ namespace Metronome
 
         private void Tempo_TextChanged(object sender, EventArgs e)
         {
-            metronomeKernel.sTempo = TempoBox.Text;
             try
             {
-                if (Convert.ToInt32(TempoBox.Text) >= 0 && Convert.ToInt32(TempoBox.Text) <= 300)
+                long nInput = Convert.ToInt64(TempoBox.Text);
+                if (nInput == 0 || nInput > 300 || nInput < 0)
+                    StartStopButton.Enabled = false;
+                if (Convert.ToInt32(TempoBox.Text) > 0 && Convert.ToInt32(TempoBox.Text) <= 300)
+                {
                     TempoBar.Value = Convert.ToInt32(TempoBox.Text);
+                    StartStopButton.Enabled = true;
+                }
             }
             catch (Exception)
             {
                 TempoBar.Value = 0;
                 Console.WriteLine();
             }
+            metronomeKernel.m_sTempo = TempoBox.Text;
         }
 
         private void TempoBar_Scroll(object sender, EventArgs e)
@@ -106,8 +112,9 @@ namespace Metronome
         {
             if (!metronomeKernel.m_bIsPlaying)
             {
-                metronomeKernel.StartClick();//metronomeKernel.Start();
-                SetControlsEnabledOnClick(false);
+
+                metronomeKernel.StartClick();
+                 SetControlsEnabledOnClick(false);
             }
             else
             {
@@ -139,6 +146,16 @@ namespace Metronome
         private void AccentUbBeatsCkeckBox_CheckedChanged(object sender, EventArgs e)
         {
             metronomeKernel.m_bIsAccentSet = AccentUbBeatsCkeckBox.Checked;
+        }
+
+        private void MetronomeForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (metronomeKernel.m_bIsPlaying == true)
+                    metronomeKernel.m_ClickThread.Abort();
+            }
+            catch (Exception) { }
         }
 
       
