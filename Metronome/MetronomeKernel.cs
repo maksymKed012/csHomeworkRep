@@ -98,6 +98,7 @@ namespace Metronome
                 m_PlayerLowSound.Stop();
                 m_ClickThread.Abort();
                 m_nClicks = 0;
+                m_nBarsPlayed = 0;
             }
             m_bIsPlaying = false;
             m_bIsControlsAvailable = true;
