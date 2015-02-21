@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MetronomeForm));
             this.QuaterNotes = new System.Windows.Forms.RadioButton();
             this.EightNotes = new System.Windows.Forms.RadioButton();
             this.EightNoteTriplets = new System.Windows.Forms.RadioButton();
@@ -209,6 +210,7 @@
             this.Controls.Add(this.EightNoteTriplets);
             this.Controls.Add(this.EightNotes);
             this.Controls.Add(this.QuaterNotes);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MetronomeForm";
             this.Text = "Metronome";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MetronomeForm_FormClosing);
