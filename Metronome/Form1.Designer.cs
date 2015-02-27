@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MetronomeForm));
             this.QuaterNotes = new System.Windows.Forms.RadioButton();
             this.EightNotes = new System.Windows.Forms.RadioButton();
@@ -35,16 +36,21 @@
             this.StartStopButton = new System.Windows.Forms.Button();
             this.TempoBar = new System.Windows.Forms.TrackBar();
             this.TempoBox = new System.Windows.Forms.TextBox();
-            this.Timer = new System.Windows.Forms.NumericUpDown();
             this.BarsCount = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.EnableBarCountCheckBox = new System.Windows.Forms.CheckBox();
             this.EnableTimerCheckBox = new System.Windows.Forms.CheckBox();
             this.AccentUbBeatsCkeckBox = new System.Windows.Forms.CheckBox();
+            this.TimerMinutes = new System.Windows.Forms.NumericUpDown();
+            this.TimerSeconds = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.TempoBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Timer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BarsCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimerMinutes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimerSeconds)).BeginInit();
             this.SuspendLayout();
             // 
             // QuaterNotes
@@ -53,10 +59,10 @@
             this.QuaterNotes.Checked = true;
             this.QuaterNotes.Location = new System.Drawing.Point(31, 12);
             this.QuaterNotes.Name = "QuaterNotes";
-            this.QuaterNotes.Size = new System.Drawing.Size(86, 17);
+            this.QuaterNotes.Size = new System.Drawing.Size(88, 17);
             this.QuaterNotes.TabIndex = 0;
             this.QuaterNotes.TabStop = true;
-            this.QuaterNotes.Text = "Quater notes";
+            this.QuaterNotes.Text = "Quater Notes";
             this.QuaterNotes.UseVisualStyleBackColor = true;
             this.QuaterNotes.CheckedChanged += new System.EventHandler(this.QuaterNotes_CheckedChanged);
             // 
@@ -114,14 +120,6 @@
             this.TempoBox.Text = "60";
             this.TempoBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.TempoBox.TextChanged += new System.EventHandler(this.Tempo_TextChanged);
-            // 
-            // Timer
-            // 
-            this.Timer.Location = new System.Drawing.Point(31, 120);
-            this.Timer.Name = "Timer";
-            this.Timer.Size = new System.Drawing.Size(120, 20);
-            this.Timer.TabIndex = 7;
-            this.Timer.ValueChanged += new System.EventHandler(this.Timer_ValueChanged);
             // 
             // BarsCount
             // 
@@ -184,7 +182,7 @@
             // AccentUbBeatsCkeckBox
             // 
             this.AccentUbBeatsCkeckBox.AutoSize = true;
-            this.AccentUbBeatsCkeckBox.Location = new System.Drawing.Point(31, 50);
+            this.AccentUbBeatsCkeckBox.Location = new System.Drawing.Point(31, 72);
             this.AccentUbBeatsCkeckBox.Name = "AccentUbBeatsCkeckBox";
             this.AccentUbBeatsCkeckBox.Size = new System.Drawing.Size(107, 17);
             this.AccentUbBeatsCkeckBox.TabIndex = 13;
@@ -192,18 +190,59 @@
             this.AccentUbBeatsCkeckBox.UseVisualStyleBackColor = true;
             this.AccentUbBeatsCkeckBox.CheckedChanged += new System.EventHandler(this.AccentUbBeatsCkeckBox_CheckedChanged);
             // 
+            // TimerMinutes
+            // 
+            this.TimerMinutes.Location = new System.Drawing.Point(31, 119);
+            this.TimerMinutes.Name = "TimerMinutes";
+            this.TimerMinutes.Size = new System.Drawing.Size(41, 20);
+            this.TimerMinutes.TabIndex = 14;
+            this.TimerMinutes.ValueChanged += new System.EventHandler(this.TimerMinutes_ValueChanged);
+            // 
+            // TimerSeconds
+            // 
+            this.TimerSeconds.Location = new System.Drawing.Point(100, 119);
+            this.TimerSeconds.Name = "TimerSeconds";
+            this.TimerSeconds.Size = new System.Drawing.Size(41, 20);
+            this.TimerSeconds.TabIndex = 15;
+            this.TimerSeconds.ValueChanged += new System.EventHandler(this.TimerSeconds_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(79, 125);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(15, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "m";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(147, 124);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(12, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "s";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MetronomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(316, 481);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.TimerSeconds);
+            this.Controls.Add(this.TimerMinutes);
             this.Controls.Add(this.AccentUbBeatsCkeckBox);
             this.Controls.Add(this.EnableTimerCheckBox);
             this.Controls.Add(this.EnableBarCountCheckBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.BarsCount);
-            this.Controls.Add(this.Timer);
             this.Controls.Add(this.TempoBox);
             this.Controls.Add(this.TempoBar);
             this.Controls.Add(this.StartStopButton);
@@ -216,8 +255,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MetronomeForm_FormClosing);
             this.Load += new System.EventHandler(this.MetronomeForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TempoBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Timer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BarsCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimerMinutes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimerSeconds)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,13 +271,17 @@
         private System.Windows.Forms.Button StartStopButton;
         private System.Windows.Forms.TrackBar TempoBar;
         private System.Windows.Forms.TextBox TempoBox;
-        private System.Windows.Forms.NumericUpDown Timer;
         private System.Windows.Forms.NumericUpDown BarsCount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox EnableBarCountCheckBox;
         private System.Windows.Forms.CheckBox EnableTimerCheckBox;
         private System.Windows.Forms.CheckBox AccentUbBeatsCkeckBox;
+        private System.Windows.Forms.NumericUpDown TimerMinutes;
+        private System.Windows.Forms.NumericUpDown TimerSeconds;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

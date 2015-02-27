@@ -87,11 +87,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\quaterImage.png" />
+    <None Include="Resources\tripletImage.png" />
     <None Include="Resources\MARIMBA2.wav" />
     <None Include="Resources\MARIMBA1.wav" />
     <None Include="Resources\LowSeiko.wav" />
     <None Include="Resources\HighSeiko.wav" />
     <None Include="Resources\Click.wav" />
+    <Content Include="Resources\8thnoteImage.png" />
     <Content Include="Resources\Click1.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

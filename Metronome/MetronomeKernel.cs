@@ -14,14 +14,14 @@ namespace Metronome
 
     class MetronomeKernel
     {
-        public bool m_bIsControlsAvailable { set; get; }
-        public bool m_bIsAccentSet { set; get; }
-        public string m_sTempo { set; get; }
+        public bool m_bIsControlsAvailable          { set; get; }
+        public bool m_bIsAccentSet                  { set; get; }
+        public string m_sTempo                      { set; get; }
+        public int m_nClicksPerBar                  { set; get; }
+        public bool m_bIsPlaying                    { set; get; }
+        public int m_nBars                          { get; set; }
         private int m_nBarsPlayed;
-        public int m_nBars { get; set; }
-        private int m_nClicks;
-        public int m_nClicksPerBar { set; get; }
-        public bool m_bIsPlaying { set; get; }
+        private int m_nClicksPlayed;
         SoundPlayer m_PlayerHighSound;
         SoundPlayer m_PlayerLowSound;
         SoundPlayer m_PlayerAvgSound;
@@ -53,22 +53,22 @@ namespace Metronome
                     m_bIsControlsAvailable = false;
                     while (true)
                     {
-                        if (m_nClicks == m_nClicksPerBar * 4)
+                        if (m_nClicksPlayed == m_nClicksPerBar * 4)
                         {
                             m_nBarsPlayed++;
-                            m_nClicks = 0;
+                            m_nClicksPlayed = 0;
                             if (m_nBarsPlayed == m_nBars)
                                 Stop();
                         }
-                        if (m_nClicks == 0 && m_bIsAccentSet == true)
+                        if (m_nClicksPlayed == 0 && m_bIsAccentSet == true)
                             m_PlayerHighSound.Play();
-                        else if ((m_nClicks != 0 && m_nClicksPerBar == 2 && m_nClicks % 2 == 0 && m_bIsAccentSet == true) ||
-                                ((m_nClicks != 0 && m_nClicksPerBar == 3 && m_nClicks % 3 == 0 && m_bIsAccentSet == true)))
+                        else if ((m_nClicksPlayed != 0 && m_nClicksPerBar == 2 && m_nClicksPlayed % 2 == 0 && m_bIsAccentSet == true) ||
+                                ((m_nClicksPlayed != 0 && m_nClicksPerBar == 3 && m_nClicksPlayed % 3 == 0 && m_bIsAccentSet == true)))
                             m_PlayerLowSound.Play();
                         else
                             m_PlayerAvgSound.Play();
                         Thread.Sleep(nCurrentTempo);
-                        m_nClicks++;
+                        m_nClicksPlayed++;
                     }
                 }
             }
@@ -97,7 +97,7 @@ namespace Metronome
                 m_PlayerHighSound.Stop();
                 m_PlayerLowSound.Stop();
                 m_ClickThread.Abort();
-                m_nClicks = 0;
+                m_nClicksPlayed = 0;
                 m_nBarsPlayed = 0;
             }
             m_bIsPlaying = false;

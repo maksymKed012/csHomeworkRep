@@ -61,6 +61,16 @@ namespace Metronome.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _8thnoteImage {
+            get {
+                object obj = ResourceManager.GetObject("_8thnoteImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         public static System.IO.UnmanagedMemoryStream Click {
@@ -102,6 +112,26 @@ namespace Metronome.Properties {
         public static System.IO.UnmanagedMemoryStream MARIMBA2 {
             get {
                 return ResourceManager.GetStream("MARIMBA2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap quaterImage {
+            get {
+                object obj = ResourceManager.GetObject("quaterImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap tripletImage {
+            get {
+                object obj = ResourceManager.GetObject("tripletImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

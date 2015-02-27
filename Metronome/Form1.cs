@@ -130,13 +130,15 @@ namespace Metronome
 
         private void EnableTimerCheckBox_CheckedChanged (object sender, EventArgs e)
         {
-            Timer.Enabled = EnableTimerCheckBox.Checked;
+            TimerMinutes.Enabled = EnableTimerCheckBox.Checked;
+            TimerSeconds.Enabled = EnableTimerCheckBox.Checked;
         }
         private void SetControlsEnabledOnClick(bool bEnabled)
         {
             TempoBox.Enabled = bEnabled;
             TempoBar.Enabled = bEnabled;
-            Timer.Enabled = bEnabled;
+            TimerMinutes.Enabled = bEnabled;
+            TimerSeconds.Enabled = bEnabled;
             BarsCount.Enabled = bEnabled;
             EnableTimerCheckBox.Enabled = bEnabled;
             EnableBarCountCheckBox.Enabled = bEnabled;
@@ -156,6 +158,21 @@ namespace Metronome
                     metronomeKernel.m_ClickThread.Abort();
             }
             catch (Exception) { }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TimerMinutes_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TimerSeconds_ValueChanged(object sender, EventArgs e)
+        {
+
         }
 
       
